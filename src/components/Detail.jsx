@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
 
@@ -22,7 +21,6 @@ function Detail() {
     <>
       <Header />
       <div className="card m-4">
-        {!token && <Navigate to="/" />}
         {movie && (
           <>
             <h2 className="font-bold m-3">{movie.title}</h2>

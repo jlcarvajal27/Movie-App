@@ -1,11 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "./Header";
 
 function Listado(props) {
-  let token = sessionStorage.getItem("token");
-
   const [movieList, setMovieList] = useState([]);
 
   useEffect(() => {
@@ -20,7 +18,6 @@ function Listado(props) {
   return (
     <>
       <Header />
-      {!token && <Navigate to="/" replace={true} />}
       <div className="row mx-1 bg-dark">
         {movieList.map((movie) => (
           <div className=" col-3 " key={movie.id}>

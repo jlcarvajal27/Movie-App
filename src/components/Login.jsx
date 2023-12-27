@@ -1,7 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import swAlert from "@sweetalert/with-react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -9,44 +8,27 @@ function Login() {
 
   const navigate = useNavigate();
 
+  const ValidateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (email === "" || password === "") {
       swAlert(<h2>los campos no pueden estar vacios</h2>);
+    } else if (!ValidateEmail(email)) {
+      swAlert(<h2>El formato del correo electrónico no es válido</h2>);
+    } else if (password.length < 6) {
+      swAlert(<h2>la contraseña debe tener 6 caracteres</h2>);
+    } else {
+      navigate("/listado");
     }
-
-    if (isValidEmail(email) && isValidPassword(password)) {
-      swAlert(<h2>Email y contraseña válidos</h2>);
-    }
-
-    if (email !== "challenge@alkemy.org" || password !== "react") {
-      swAlert(<h2>datos invalidos </h2>);
-      return;
-    }
-    axios
-      .post("http://challenge-react.alkemy.org", { email, password })
-      .then((res) => {
-        const tokenRecibido = res.data.token;
-        sessionStorage.setItem("token", tokenRecibido);
-        navigate("/listado");
-      });
-  };
-
-  let token = sessionStorage.getItem("token");
-
-  const isValidEmail = (email) => {
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return emailPattern.test(email);
-  };
-
-  const isValidPassword = (password) => {
-    return password.length <= 6;
   };
 
   return (
     <div className="container m-5">
-      {token && <Navigate to="/listado" />}
       <div className="row">
         <div className="col-6 offset-3">
           <h1 className="text-center m-2 fw-bold">React Movie </h1>

@@ -7,12 +7,12 @@ function Header() {
     <header>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
-          <Link to="/">Movie App</Link>
+          <Link>Movie App</Link>
 
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link" to="/">
+                <Link className="nav-link" to="/listado">
                   Home
                 </Link>
               </li>

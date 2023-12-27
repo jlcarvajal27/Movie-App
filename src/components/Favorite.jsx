@@ -1,12 +1,10 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "./Header";
 
 function Favorite(props) {
-  let token = sessionStorage.getItem("token");
   return (
     <>
       <Header />
-      {!token && <Navigate to="/" replace={true} />}
       <div className="row mx-1 bg-dark">
         {props.favorite.map((movie) => (
           <div className=" col-3 " key={movie.id}>
